@@ -9,8 +9,13 @@ def calculator(exp):
         return eval(exp)
 
 
-expression = input("Enter the expression: ")
-print(calculator(expression))
+def incoming_data(*args):
+    expression = input("Enter the expression: ")
+    return expression
+
+
+if __name__ == '__main__':
+    print(calculator(incoming_data()))
 
 # r1 = re.findall(r"^\w+",expression)
 # print(r1)
