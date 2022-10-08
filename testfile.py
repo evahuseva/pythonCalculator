@@ -6,40 +6,26 @@ import re
 
 class MyTestCase(unittest.TestCase):
 
-    def test_string_input(self):
-        self.get_expression = main.expression
-        try:
-            if type(self.get_expression) != str:
-                raise TypeError
-        except TypeError:
-            return 'Type error occurred.'
+    def test_invalid_type_input(self):
+        self.input_type = type(main.expression)
+        self.assertEqual(self.input_type, str)
 
     def test_valid_input(self):
-        self.get_expression = main.expression
         self.isvalid = not re.search('^(?:0|[1-9]\d*)(?:[+*-](?:0|[1-9]\d*))*$', main.expression) is None
-        try:
-            if self.isvalid:
-                pass
-        except SyntaxError:
-            return 'Syntax error occurred.'
+        self.assertEqual(self.isvalid, True)
 
     def test_calculation(self):
-        main.expression = '1*10-50000+200'
         example = Calc()
+        main.expression = '1*10-50000+200'
         self.call_calculating = str(example.calculating())
-        if self.assertEqual(self.call_calculating, '-49790'):
-            pass
-        else:
-            assert 'Unsolved calculation problem.'
+        self.assertEqual(self.call_calculating, '-49790')
 
     def test_zero_division(self):
-        example = Calc()
-        try:
-            example.calculating()
-        except ZeroDivisionError:
-            print('Zero Division')
+        self.is_zero_division = False
+        if '/0' in main.expression:
+            self.is_zero_division = True
+        self.assertEqual(self.is_zero_division, False)
 
 
 if __name__ == '__main__':
     unittest.main()
-    
