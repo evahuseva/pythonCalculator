@@ -23,6 +23,9 @@ class Calc:
         except NameError:
             print('Invalid input.')
             pass
+        except OSError:
+            print('No such file or directory.')
+            pass
         finally:
             pass
 
